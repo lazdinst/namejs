@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { fetchServerStatus } from "../redux/slices/api";
 import { RootState, useAppDispatch } from "../redux/store";
 import WebSocketProvider from "./providers/WebSocketProvider";
+import Map from "./Map";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -40,24 +41,25 @@ function App() {
     }
   }, [connected, loading, retryCount, dispatch]);
 
-  if (connected) {
-    return (
-      <WebSocketProvider>
-        <div>Connected</div>
-      </WebSocketProvider>
-    );
-  }
-  return (
-    <div>
-      Connecting... Failed {retryCount} of {MAX_RETRY_ATTEMPTS}
-      {retryCount >= MAX_RETRY_ATTEMPTS && (
-        <div>
-          Failed to connect to server
-          <button onClick={() => setRetryCount(0)}>Retry</button>
-        </div>
-      )}
-    </div>
-  );
+  // if (connected) {
+  //   return (
+  //     <WebSocketProvider>
+  //       <div>Connected</div>
+  //     </WebSocketProvider>
+  //   );
+  // }
+  // return (
+  //   <div>
+  //     Connecting... Failed {retryCount} of {MAX_RETRY_ATTEMPTS}
+  //     {retryCount >= MAX_RETRY_ATTEMPTS && (
+  //       <div>
+  //         Failed to connect to server
+  //         <button onClick={() => setRetryCount(0)}>Retry</button>
+  //       </div>
+  //     )}
+  //   </div>
+  // );
+  return <Map />;
 }
 
 export default App;
