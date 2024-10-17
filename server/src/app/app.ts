@@ -14,7 +14,19 @@ app.use(requestLogger);
 // Register routes
 app.use("/api", routes);
 
-// Global error handler
-app.use(errorHandler);
+app.get("/test", (req, res) => {
+  res.send("Test route working!");
+});
+
+// // Global error handler
+// app.use(errorHandler);
+
+// app.use("*", (req, res) => {
+//   res.status(404).send(`Cannot ${req.method} ${req.originalUrl}`);
+// });
+
+// app.get("/test", (req, res) => {
+//   res.send("Test route working!");
+// });
 
 export default app;

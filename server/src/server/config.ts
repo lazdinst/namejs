@@ -6,5 +6,9 @@ function getEnvVariable(key: string, defaultValue?: string): string {
   return value;
 }
 
-export const SERVER_PORT: number = parseInt(getEnvVariable("PORT", "4000"), 10);
-export const ENVIRONMENT: string = getEnvVariable("NODE_ENV", "development");
+const config = {
+  port: parseInt(getEnvVariable("PORT", "4000"), 10),
+  environment: getEnvVariable("NODE_ENV", "development"),
+};
+
+export default config;
