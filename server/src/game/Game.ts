@@ -9,13 +9,11 @@ export enum GameStatus {
 
 export class Game {
   private status: GameStatus;
-  private gameState: GameState;
+  private platoons: Platoon[];
 
   constructor() {
     this.status = GameStatus.NOT_STARTED;
-    this.gameState = {
-      platoons: [...initialPlatoons],
-    };
+    this.platoons = initialPlatoons();
   }
 
   public start(): string {
@@ -36,9 +34,7 @@ export class Game {
 
   public reset(): string {
     this.status = GameStatus.NOT_STARTED;
-    this.gameState = {
-      platoons: [...initialPlatoons],
-    };
+    this.platoons = initialPlatoons();
     return "Game reset successfully.";
   }
 
@@ -46,7 +42,20 @@ export class Game {
     return this.status;
   }
 
-  public getGameState(): GameState {
-    return this.gameState;
+  public getGameState(): { platoons: Platoon[] } {
+    return {
+      platoons: this.platoons,
+    };
+  }
+
+  public attackPlatoon(attackerId: string, targetId: string): string {
+    const attacker = this.platoons.find((p) => p.id === attackerId);
+    const target = this.platoons.find((p) => p.id === targetId);
+
+    if (!attacker || !target) {
+      return "One or both platoons not found.";
+    }
+
+    return attacker.attack(target);
   }
 }
