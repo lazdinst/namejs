@@ -13,6 +13,9 @@ app.use(requestLogger);
 
 // Register routes
 app.use("/api", routes);
+// app.use("/api", (req, res) => {
+//   res.send("Test route working!");
+// });
 
 app.get("/test", (req, res) => {
   res.send("Test route working!");
