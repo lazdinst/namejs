@@ -46,11 +46,29 @@ export interface BodyPart {
   hitPoints: number;
 }
 
+export enum UnitStatusType {
+  Idle = "idle",
+  Moving = "moving",
+  Attacking = "attacking",
+  Defending = "defending",
+  Kia = "kia",
+  Wounded = "wounded",
+  Retreating = "retreating",
+}
+
+export enum CoverType {
+  None = "none",
+  Low = "low",
+  Medium = "medium",
+  High = "high",
+}
+
 export interface UnitType {
   id: string;
   position: [number, number];
   health: number;
-  status: "idle" | "engaged" | "moving";
+  status: UnitStatusType;
+  cover: CoverType;
   role: Role;
   inventory: InventoryType;
   bodyParts: BodyPart[];
