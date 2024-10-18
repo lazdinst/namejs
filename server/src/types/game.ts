@@ -1,21 +1,22 @@
-export interface Unit {
+export interface UnitType {
   id: string;
   position: [number, number];
   health: number;
   status: "idle" | "engaged" | "moving";
 }
 
-export interface Platoon {
+export interface PlatoonType {
   id: string;
-  units: Unit[];
+  units: UnitType[];
   strategy: "aggressive" | "defensive" | "patrol";
+  attack: (targetPlatoon: PlatoonType) => string;
 }
 
-export interface GameState {
-  platoons: Platoon[];
+export interface GameStateType {
+  platoons: PlatoonType[];
 }
 
-export interface Command {
+export interface CommandType {
   action: "move" | "changeStrategy";
   platoonId: string;
   unitId: string;
@@ -23,7 +24,7 @@ export interface Command {
   newStrategy?: "aggressive" | "defensive" | "patrol";
 }
 
-export interface GameEvent {
+export interface GameEventType {
   type: "engagement";
   message: string;
 }

@@ -8,7 +8,7 @@ const game = new Game();
 
 const server = http.createServer(app);
 
-setupWebSocket(server);
+setupWebSocket(server, game);
 
 server.listen(SERVER_PORT, () => {
   console.log(`Server is running on port ${SERVER_PORT}`);

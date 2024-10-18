@@ -1,10 +1,10 @@
 import { Server as WebSocketServer } from "ws";
-import { getGameState } from "../game/gameState";
+import { Game } from "../game/Game";
 
-export const broadcastGameState = (wss: WebSocketServer): void => {
+export const broadcastGameState = (wss: WebSocketServer, game: Game): void => {
   const gameStateMessage = JSON.stringify({
     type: "gameState",
-    data: getGameState(),
+    data: game.getGameState(),
   });
 
   wss.clients.forEach((client) => {

@@ -1,5 +1,6 @@
-import { GameState, Platoon } from "../types/game";
+import { GameStateType, PlatoonType, CommandType } from "../types/game";
 import { initialPlatoons } from "./gameConfig";
+import { Platoon } from "./Platoon";
 
 export enum GameStatus {
   NOT_STARTED = "not_started",
@@ -46,6 +47,10 @@ export class Game {
     return {
       platoons: this.platoons,
     };
+  }
+
+  public processCommand(command: CommandType): void {
+    console.log("Processing command:", command);
   }
 
   public attackPlatoon(attackerId: string, targetId: string): string {

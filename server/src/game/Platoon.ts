@@ -15,9 +15,8 @@ export class Platoon {
     this.units = units;
   }
 
-  // Method to attack another platoon
   public attack(targetPlatoon: Platoon): string {
-    const attackSuccessProbability = Math.random(); // Probability for attack success
+    const attackSuccessProbability = Math.random();
 
     if (attackSuccessProbability > 0.5) {
       // If attack is successful, inflict damage to target units
