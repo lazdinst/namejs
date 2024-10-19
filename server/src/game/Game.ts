@@ -1,5 +1,5 @@
 import { GameStateType, PlatoonType, CommandType } from "../types/game";
-import { initialPlatoons } from "./gameConfig";
+import { initialPlatoons } from "../config/gameConfig";
 import { Platoon } from "./Platoon";
 
 export enum GameStatus {

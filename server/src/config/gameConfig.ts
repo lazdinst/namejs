@@ -1,5 +1,5 @@
-import { Platoon } from "./Platoon";
-import { Unit } from "./Unit";
+import { Platoon } from "../game/Platoon";
+import { Unit } from "../game/Unit";
 import { Role } from "../types/unit";
 
 export const createUnitByRole = (
