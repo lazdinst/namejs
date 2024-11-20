@@ -15,19 +15,33 @@ export class Platoon {
     this.units = units;
   }
 
-  public attack(targetPlatoon: Platoon): string {
-    const attackSuccessProbability = Math.random();
+  public attackPlatoon(targetPlatoon: Platoon): string {
+    const targetMap = this.assignTargets(targetPlatoon);
 
-    if (attackSuccessProbability > 0.5) {
-      // If attack is successful, inflict damage to target units
-      const damage = Math.floor(Math.random() * 30) + 10; // Random damage between 10 and 40
-      targetPlatoon.units.forEach((unit) => {
-        unit.takeDamage(damage);
-      });
+    targetMap.forEach((target, attacker) => {
+      const attackResult = attacker.attack(target);
+      console.log(`${attacker.id} attacked ${target.id}: ${attackResult}`);
+    });
 
-      return `Attack successful! ${targetPlatoon.id} units took ${damage} damage.`;
-    } else {
-      return "Attack failed.";
-    }
+    return `Platoon ${this.id} has attacked platoon ${targetPlatoon.id}`;
+  }
+
+  private assignTargets(targetPlatoon: Platoon): Map<Unit, Unit> {
+    const targetMap = new Map<Unit, Unit>();
+    const availableTargets = [...targetPlatoon.units];
+
+    this.units.forEach((attacker) => {
+      if (availableTargets.length > 0) {
+        // Select a random target from the opposing platoon
+        const randomIndex = Math.floor(Math.random() * availableTargets.length);
+        const target = availableTargets[randomIndex];
+        targetMap.set(attacker, target);
+
+        // Remove the selected target from available targets to avoid duplicate assignments
+        availableTargets.splice(randomIndex, 1);
+      }
+    });
+
+    return targetMap;
   }
 }

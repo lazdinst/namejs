@@ -1,9 +1,23 @@
+export enum UnitStatusType {
+  Idle = "",
+  Engaged = "engaged",
+  Moving = "moving",
+  Kia = "kia",
+}
+
 export enum Role {
   SquadLeader = "squadLeader",
   Rifleman = "rifleman",
   LightMachineGunner = "lightMachineGunner",
   Grenadier = "grenadier",
   Recon = "recon",
+}
+
+export enum CoverType {
+  None = "none",
+  Low = "low",
+  Medium = "medium",
+  High = "high",
 }
 
 export enum WeaponType {
@@ -13,6 +27,15 @@ export enum WeaponType {
   SniperRifle = "sniperRifle",
   Pistol = "pistol",
   SMG = "smg",
+}
+
+export enum AmmunitionType {
+  RifleAmmo = "rifleAmmo",
+  LMGAmmo = "lmgAmmo",
+  Grenade = "grenade",
+  SniperAmmo = "sniperAmmo",
+  PistolAmmo = "pistolAmmo",
+  SMGAmmo = "smgAmmo",
 }
 
 export enum SightType {
@@ -46,29 +69,11 @@ export interface BodyPart {
   hitPoints: number;
 }
 
-export enum UnitStatusType {
-  Idle = "idle",
-  Moving = "moving",
-  Attacking = "attacking",
-  Defending = "defending",
-  Kia = "kia",
-  Wounded = "wounded",
-  Retreating = "retreating",
-}
-
-export enum CoverType {
-  None = "none",
-  Low = "low",
-  Medium = "medium",
-  High = "high",
-}
-
 export interface UnitType {
   id: string;
   position: [number, number];
   health: number;
-  status: UnitStatusType;
-  cover: CoverType;
+  status: "idle" | "engaged" | "moving";
   role: Role;
   inventory: InventoryType;
   bodyParts: BodyPart[];
@@ -220,4 +225,25 @@ export const weaponEffectiveRange: Record<
     [SightType.RedDot]: 200,
     [SightType.IronSights]: 150,
   },
+};
+
+// Ammunition properties for each type
+export const ammunitionProperties: Record<AmmunitionType, { damage: number }> =
+  {
+    [AmmunitionType.RifleAmmo]: { damage: 30 },
+    [AmmunitionType.LMGAmmo]: { damage: 35 },
+    [AmmunitionType.Grenade]: { damage: 100 },
+    [AmmunitionType.SniperAmmo]: { damage: 90 },
+    [AmmunitionType.PistolAmmo]: { damage: 15 },
+    [AmmunitionType.SMGAmmo]: { damage: 25 },
+  };
+
+// Mapping each weapon type to its ammunition type
+export const weaponAmmunitionType: Record<WeaponType, AmmunitionType> = {
+  [WeaponType.AssaultRifle]: AmmunitionType.RifleAmmo,
+  [WeaponType.LightMachineGun]: AmmunitionType.LMGAmmo,
+  [WeaponType.GrenadeLauncher]: AmmunitionType.Grenade,
+  [WeaponType.SniperRifle]: AmmunitionType.SniperAmmo,
+  [WeaponType.Pistol]: AmmunitionType.PistolAmmo,
+  [WeaponType.SMG]: AmmunitionType.SMGAmmo,
 };

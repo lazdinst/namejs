@@ -57,4 +57,23 @@ export class Unit {
     this.position = newPosition;
     this.status = UnitStatusType.Moving;
   }
+
+  public attack(target: Unit): string {
+    const damage = this.calculateDamage(target);
+    target.takeDamage(damage);
+
+    return `Dealt ${damage} damage to ${target.id}`;
+  }
+
+  private calculateDamage(target: Unit): number {
+    const distance = this.calculateDistance(target);
+    const damage = 100 - distance;
+    return Math.max(0, damage);
+  }
+
+  private calculateDistance(target: Unit): number {
+    const [x1, y1] = this.position;
+    const [x2, y2] = target.position;
+    return Math.abs(x1 - x2) + Math.abs(y1 - y2);
+  }
 }
