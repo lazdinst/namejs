@@ -1,3 +1,4 @@
+// DEPRECATED: This file is deprecated and will be removed in the future. Please use the new color system in the theme.ts file.
 export interface MissionColors {
   blurpuple: string;
   green: string;
@@ -5,39 +6,39 @@ export interface MissionColors {
   accent: string;
 }
 export const missionColors: MissionColors = {
-  blurpuple: '#272760',
-  green: '#7EB95E',
-  orange: '#f69527',
-  accent: '#4a4ab5',
+  blurpuple: "#272760",
+  green: "#7EB95E",
+  orange: "#f69527",
+  accent: "#4a4ab5",
 };
 
 const darkStatusColors: StatusColors = {
-  success: '#28A745',
-  error: '#dc3545',
-  warning: '#ffc107',
-  info: '#0070e0',
-  none: '#bdc1c6',
-  primary: '#007bff',
-  secondary: '#FFF',
+  success: "#28A745",
+  error: "#dc3545",
+  warning: "#ffc107",
+  info: "#0070e0",
+  none: "#bdc1c6",
+  primary: "#007bff",
+  secondary: "#FFF",
 };
 
 const colors: StatusColors = {
-  success: '#28A745',
-  error: '#dc3545',
-  warning: '#ffc107',
-  info: '#0070e0',
-  none: '#bdc1c6',
+  success: "#28A745",
+  error: "#dc3545",
+  warning: "#ffc107",
+  info: "#0070e0",
+  none: "#bdc1c6",
   primary: missionColors.blurpuple,
   secondary: missionColors.blurpuple,
 };
 
 const lightStatusColors: StatusColors = {
-  success: '#28A745',
-  error: '#dc3545',
-  warning: '#ffc107',
-  info: '#0070e0',
-  none: '#bdc1c6',
-  primary: '#007bff',
+  success: "#28A745",
+  error: "#dc3545",
+  warning: "#ffc107",
+  info: "#0070e0",
+  none: "#bdc1c6",
+  primary: "#007bff",
   secondary: missionColors.blurpuple,
 };
 
@@ -72,32 +73,32 @@ interface NeutralsType {
 }
 
 export const neutrals: NeutralsType = {
-  white: '#ffffff',
-  black: '#000000',
+  white: "#ffffff",
+  black: "#000000",
   gray: {
-    50: '#fafafa',
-    100: '#f5f5f5',
-    200: '#e5e5e5',
-    300: '#d4d4d4',
-    400: '#a3a3a3',
-    500: '#737373',
-    600: '#525252',
-    700: '#404040',
-    800: '#262626',
-    900: '#171717',
-    950: '#0a0a0a',
+    50: "#fafafa",
+    100: "#f5f5f5",
+    200: "#e5e5e5",
+    300: "#d4d4d4",
+    400: "#a3a3a3",
+    500: "#737373",
+    600: "#525252",
+    700: "#404040",
+    800: "#262626",
+    900: "#171717",
+    950: "#0a0a0a",
   },
   lights: {
-    50: '#ffffff',
-    100: '#fefefe',
-    200: '#fcfcfc',
-    300: '#fafafa',
-    400: '#f7f7f7',
-    500: '#f5f5f5',
-    600: '#f2f2f2',
-    700: '#f0f0f0',
-    800: '#ededed',
-    900: '#ebebeb',
+    50: "#ffffff",
+    100: "#fefefe",
+    200: "#fcfcfc",
+    300: "#fafafa",
+    400: "#f7f7f7",
+    500: "#f5f5f5",
+    600: "#f2f2f2",
+    700: "#f0f0f0",
+    800: "#ededed",
+    900: "#ebebeb",
   },
 };
 
@@ -107,11 +108,11 @@ export interface BrandColors {
 }
 
 const brandColors = {
-  primary: '#007bff',
-  secondary: '#6c757d',
+  primary: "#007bff",
+  secondary: "#6c757d",
 };
 
-export const accent: string = '#007bff';
+export const accent: string = "#007bff";
 export interface StatusColors {
   success: string;
   error: string;
@@ -148,8 +149,8 @@ export const buttonColors: ButtonColors = {
   none: colors.none,
   primary: brandColors.primary,
   secondary: brandColors.secondary,
-  light: '#f8f9fa',
-  dark: '#343a40',
+  light: "#f8f9fa",
+  dark: "#343a40",
 };
 
 export interface SharedColors {
