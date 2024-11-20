@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 const GlobalStyle = createGlobalStyle`
 
   body {
@@ -21,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
 
   *::-webkit-scrollbar-thumb {
     background-color: ${({ theme }) =>
-      theme.colors.components.scrollbar.thumb}; /* color of the scroll thumb */
+      theme.components.scrollbar.thumb}; /* color of the scroll thumb */
     border-radius: 5px; /* roundness of the scroll thumb */
     border: 3px solid rgb(0, 0, 0, 0); /* creates padding around the scroll thumb */
   }

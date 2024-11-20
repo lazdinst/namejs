@@ -1,11 +1,11 @@
-import React, { useContext, ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { useSelector } from "react-redux";
 import styled, {
   ThemeProvider as StyledThemeProvider,
 } from "styled-components";
-import { dark } from "./themes";
+import { darkTheme } from "./theme";
 import { ThemeModeState } from "../redux/slices/theme";
-import GlobalStyle from "./themes/global";
+import GlobalStyle from "./theme/shared/global";
 
 const AppWrapper = styled.div`
   display: flex;
@@ -14,23 +14,15 @@ const AppWrapper = styled.div`
   width: 100vw;
   position: fixed;
   background-color: ${(props) => props.theme.colors.background};
-  color: ${(props) => props.theme.colors.text};
+  color: ${(props) => props.theme.colors.textPrimary};
 `;
 
-const ThemeContext = React.createContext<
+export const ThemeContext = React.createContext<
   | {
-      theme: typeof dark;
+      theme: typeof darkTheme;
     }
   | undefined
 >(undefined);
-
-export const useTheme = () => {
-  const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error("useTheme must be used within a ThemeProvider");
-  }
-  return context;
-};
 
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
   children,
@@ -38,11 +30,11 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
   const mode = useSelector(
     (state: { theme: ThemeModeState }) => state.theme.mode
   );
-  let selectedTheme = dark;
+  let selectedTheme = darkTheme;
 
   switch (mode) {
     default:
-      selectedTheme = dark;
+      selectedTheme = darkTheme;
   }
 
   return (
@@ -55,4 +47,4 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
   );
 };
 
-export { dark as defaultTheme };
+export { darkTheme as defaultTheme };
