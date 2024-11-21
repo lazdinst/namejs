@@ -23,6 +23,7 @@ function App() {
     // Placeholder search logic
     setSearchResults(`Searching for "${query}"...`);
     console.log("Search query:", query);
+    console.log(searchResults);
   };
 
   const navLinks = [
@@ -57,6 +58,7 @@ function App() {
     }
   }, [connected, loading, retryCount, dispatch]);
 
+  // Placeholder for WebSocket integration
   // if (connected) {
   //   return (
   //     <WebSocketProvider>
@@ -75,12 +77,19 @@ function App() {
   //     )}
   //   </div>
   // );
-  console.log(searchResults);
+
   return (
     <>
       <Wrapper
         topNav={
-          <TopNavBar appName="MyApp" links={navLinks} onSearch={handleSearch} />
+          <TopNavBar
+            appName="Namejs"
+            logoSrc="/ring.png"
+            links={navLinks}
+            onSearch={handleSearch}
+            avatarUrl="/user-avatar.png"
+            onAvatarClick={() => console.log("Avatar clicked!")}
+          />
         }
         leftPanel={<div>Left Panel Content</div>}
         rightPanel={<div>Right Panel Content</div>}

@@ -1,12 +1,15 @@
-// client/src/styled/theme/shared/colors.ts
+export const sharedColors = {
+  // Semantic Colors
+  status: {
+    success: "#28a745", // Shared success color
+    error: "#dc3545", // Shared error color
+    warning: "#ffc107", // Shared warning color
+    info: "#007bff", // Shared info color
+  },
 
-const sharedColors = {
-  primary: "#007bff", // Primary action or highlight color
-  secondary: "#6c757d", // Secondary or neutral color
-  success: "#28a745", // Success indicator
-  warning: "#ffc107", // Warning indicator
-  error: "#dc3545", // Error indicator
-  accent: "#00bcd4", // Accent color
+  // Global Accent
+  accent: "#00bcd4", // Shared accent color (can vary per theme)
+
+  // Reserved for Theme-Specific Overrides
+  neutrals: {}, // Empty here; populated in theme files
 };
-
-export default sharedColors;

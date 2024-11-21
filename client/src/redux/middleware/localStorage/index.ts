@@ -1,7 +1,8 @@
-import { Middleware } from '@reduxjs/toolkit';
-import { isEqual } from '../../../utils';
+import { Middleware } from "@reduxjs/toolkit";
+import { isEqual } from "../../../utils";
 
 const localStorageMiddleware: Middleware = ({ getState, dispatch }) => {
+  console.log(dispatch);
   let previousPlannerState = getState().planner;
   let previousUIState = getState().ui;
 
@@ -17,7 +18,7 @@ const localStorageMiddleware: Middleware = ({ getState, dispatch }) => {
       const { ready, active_task, mission } = currentMasterPlannerState;
       const plannerState = { ready, active_task, mission };
 
-      localStorage.setItem('planner', JSON.stringify(plannerState));
+      localStorage.setItem("planner", JSON.stringify(plannerState));
       previousPlannerState = currentMasterPlannerState;
     }
 
@@ -26,7 +27,7 @@ const localStorageMiddleware: Middleware = ({ getState, dispatch }) => {
       // UI Caching
       if (!isEqual(currentUIState, previousUIState)) {
         // TODO: This needs to be debounced and needs to be a dispatched thunk
-        localStorage.setItem('ui', JSON.stringify(currentUIState));
+        localStorage.setItem("ui", JSON.stringify(currentUIState));
         previousUIState = currentUIState;
       }
     }

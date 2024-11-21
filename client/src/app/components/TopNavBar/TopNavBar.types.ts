@@ -1,5 +1,10 @@
+import { Link } from './Links/Links.types';
+
 export interface TopNavBarProps {
-  appName: string; // Name of the app to display in the nav bar
-  links: { label: string; href: string }[]; // List of navigation links
-  onSearch: (query: string) => void; // Callback for search input
+  appName: string;
+  logoSrc: string;
+  links: Link[];
+  onSearch: (query: string) => void;
+  avatarUrl: string;
+  onAvatarClick: () => void;
 }
