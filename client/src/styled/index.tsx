@@ -13,8 +13,8 @@ const AppWrapper = styled.div`
   height: 100vh;
   width: 100vw;
   position: fixed;
-  background-color: ${(props) => props.theme.colors.background};
-  color: ${(props) => props.theme.colors.textPrimary};
+  background-color: ${(props) => props.theme.colors.surfaces.background};
+  color: ${(props) => props.theme.colors.text.primary};
 `;
 
 export const ThemeContext = React.createContext<
