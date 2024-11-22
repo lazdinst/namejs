@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const UserMenuContainer = styled.div`
   display: flex;
@@ -7,8 +7,8 @@ export const UserMenuContainer = styled.div`
 `;
 
 export const Avatar = styled.img`
-  height: 40px;
-  width: 40px;
+  height: 32px;
+  width: 32px;
   border-radius: 50%;
   cursor: pointer;
 `;

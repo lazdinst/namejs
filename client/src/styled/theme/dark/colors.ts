@@ -2,20 +2,19 @@
 import { Colors } from "../types/colors"; // Import the Colors interface
 import { sharedColors } from "../shared/colors";
 
-// Define theme-specific neutrals
 const neutrals = {
-  0: "#ffffff", // White
-  50: "#f8f9fa", // Lightest gray
-  100: "#f1f3f5", // Very light gray
-  200: "#e9ecef", // Light gray
-  300: "#dee2e6", // Medium light gray
-  400: "#ced4da", // Medium gray
-  500: "#adb5bd", // Neutral gray
-  600: "#868e96", // Medium dark gray
-  700: "#495057", // Dark gray
-  800: "#343a40", // Very dark gray
-  900: "#212529", // Darker gray
-  950: "#121212", // Almost black
+  0: "#ffffff", // White (unchanged)
+  50: "#e5e5e5", // Very light gray
+  100: "#c8c8c8", // Light gray
+  200: "#a0a0a0", // Medium-light gray
+  300: "#7a7a7a", // Medium gray
+  400: "#5a5a5a", // Neutral gray
+  500: "#444444", // Medium-dark gray
+  600: "#303030", // Dark gray
+  700: "#1f1f1f", // Very dark gray
+  800: "#151515", // Almost black
+  900: "#0c0c0c", // Near pitch black
+  950: "#000000", // Black
 };
 
 // Define the dark color theme
@@ -40,7 +39,7 @@ const darkColors: Colors = {
     footer: neutrals[800], // Footer background
     modal: neutrals[900], // Modal background
     overlay: "rgba(0, 0, 0, 0.5)", // Overlay for modals/dialogs
-    toolbar: neutrals[800], // Toolbar background
+    toolbar: neutrals[900], // Toolbar background
     sidebar: neutrals[800], // Sidebar background
   },
 
@@ -56,7 +55,7 @@ const darkColors: Colors = {
   },
 
   // Borders
-  border: neutrals[700], // General border color
+  border: neutrals[900], // General border color
 };
 
 export default darkColors;
