@@ -87,7 +87,7 @@ function App() {
             logoSrc="/ring.png"
             links={navLinks}
             onSearch={handleSearch}
-            avatarUrl="/user-avatar.png"
+            avatarUrl="/ring.png"
             onAvatarClick={() => console.log("Avatar clicked!")}
           />
         }

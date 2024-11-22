@@ -5,13 +5,13 @@ export const LogoContainer = styled.div`
   align-items: center;
 
   img {
-    height: 40px;
+    height: 32px;
     margin-right: 10px;
     filter: invert();
   }
 
   h1 {
-    font-size: 18px;
+    font-size: ${({ theme }) => theme.typography.fontSize.medium};
     color: ${({ theme }) => theme.components.navigationBar.text};
     margin: 0;
   }

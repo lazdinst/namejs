@@ -1,7 +1,9 @@
 export interface Typography {
-  fontSizeSmall: string;
-  fontSizeMedium: string;
-  fontSizeLarge: string;
+  fontSize: {
+    small: string;
+    medium: string;
+    large: string;
+  };
   lineHeightSmall: string;
   lineHeightMedium: string;
   lineHeightLarge: string;
