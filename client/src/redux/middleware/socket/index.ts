@@ -1,9 +1,9 @@
-import { Middleware, Action } from '@reduxjs/toolkit';
-import { initializeSocketListeners } from './listeners';
+import { Middleware, Action } from "@reduxjs/toolkit";
+import { initializeSocketListeners } from "./listeners";
 
 function isReduxAction(action: unknown): action is Action {
   if (!action) return false;
-  return typeof action === 'object' && 'type' in action;
+  return typeof action === "object" && "type" in action;
 }
 
 const socketMiddleware = (): Middleware => {
@@ -13,18 +13,18 @@ const socketMiddleware = (): Middleware => {
     (next) =>
     (action) => {
       if (isReduxAction(action)) {
-        if (action.type === 'socket/connect') {
+        if (action.type === "socket/connect") {
           if (!socket) {
-            const HOST = import.meta.env.VITE_EEIP_SERVER_HOST || '0.0.0.0';
-            const PORT = import.meta.env.VITE_EEIP_SERVER_PORT || 6200;
+            const HOST = import.meta.env.VITE_SERVER_HOST || "localhost";
+            const PORT = import.meta.env.VITE_SERVER_PORT || 4000;
 
-            const WS_URL = `ws://${HOST}:${PORT}/eeip_ws`;
+            const WS_URL = `ws://${HOST}:${PORT}/`;
             socket = new WebSocket(WS_URL);
             initializeSocketListeners(socket, getState, dispatch);
           }
         }
 
-        if (action.type === 'socket/disconnect') {
+        if (action.type === "socket/disconnect") {
           if (socket) {
             socket.close();
             socket = null;
