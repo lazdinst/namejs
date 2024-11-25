@@ -10,8 +10,7 @@ export const handleConnection = (
 ): void => {
   console.log("A user connected");
 
-  // Send the initial game state to the new client
-  ws.send(JSON.stringify({ type: "gameState", data: "Some Data" }));
+  broadcastGameState(wss, game);
 
   // Listen for incoming messages
   ws.on("message", (message: string) => handleMessage(ws, message, wss, game));

@@ -43,8 +43,9 @@ export class Game {
     return this.status;
   }
 
-  public getGameState(): { platoons: Platoon[] } {
+  public getGameState(): { status: GameStatus; platoons: Platoon[] } {
     return {
+      status: this.status,
       platoons: this.platoons,
     };
   }
