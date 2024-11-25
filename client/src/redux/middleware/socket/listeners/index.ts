@@ -1,14 +1,8 @@
 import { RootState, AppDispatch } from "../../../store";
-import { WebsocketMessage } from "../types/websocket.types";
-
-import {
-  setWebSocketConnected,
-  setWebSocketDisconnected,
-} from "../../../slices/websocket";
-
-import { disconnected } from "../../../slices/api";
-import handleStatusMessageType from "./status";
-import handleIOMessageStatus from "./io";
+import { handleOnOpen } from "./onOpen";
+import { handleOnClose } from "./onClose";
+import { handleOnError } from "./onError";
+import { handleOnMessage } from "./onmessage";
 
 export const initializeSocketListeners = (
   socket: WebSocket,
@@ -23,33 +17,11 @@ export const setupSocketStateListeners = (
   getState: () => RootState,
   dispatch: AppDispatch
 ) => {
-  console.log(getState);
-  socket.onopen = () => {
-    console.log("Websocket Opened ...");
-    dispatch(setWebSocketConnected());
-  };
+  socket.onopen = () => handleOnOpen(dispatch);
 
-  socket.onclose = () => {
-    console.log("Websocket Closed...");
-    dispatch(disconnected());
-    dispatch(setWebSocketDisconnected());
-  };
+  socket.onclose = () => handleOnClose(dispatch);
 
-  socket.onerror = (error) => {
-    console.error("WebSocket error:", error);
-  };
+  socket.onerror = (error) => handleOnError(error);
 
-  socket.onmessage = (event) => {
-    const message: WebsocketMessage = JSON.parse(event.data);
-    console.log("Websocket OnMessage:", message);
-    const messageType = message.type;
-
-    if (messageType === "status") {
-      handleStatusMessageType(message, dispatch);
-    }
-
-    if (messageType === "io") {
-      handleIOMessageStatus(message, dispatch);
-    }
-  };
+  socket.onmessage = (event) => handleOnMessage(event, dispatch);
 };

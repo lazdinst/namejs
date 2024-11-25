@@ -21,8 +21,8 @@ interface ServerStatusResponse {
 export const fetchServerStatus = createAsyncThunk<ServerStatusResponse, void>(
   "server/fetchServerStatus",
   async () => {
-    const HOST = import.meta.env.VITE_EEIP_SERVER_HOST || "0.0.0.0";
-    const PORT = import.meta.env.VITE_EEIP_SERVER_PORT || 6200;
+    const HOST = import.meta.env.VITE_SERVER_HOST || "0.0.0.0";
+    const PORT = import.meta.env.VITE_SERVER_PORT || 4000;
     const uri = `http://${HOST}:${PORT}/api/status`;
     const response = await axios.get<ServerStatusResponse>(uri);
     return response.data;
@@ -58,7 +58,8 @@ const server = createSlice({
         state.loading = true;
       })
       .addCase(fetchServerStatus.fulfilled, (state, action) => {
-        state.connected = action.payload.connected;
+        console.log(action.payload);
+        state.connected = true;
         state.error = null;
         state.loading = false;
       })

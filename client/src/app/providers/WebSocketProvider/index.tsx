@@ -1,40 +1,38 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../../redux/store';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../redux/store";
 import {
   connectSocket,
   disconnectSocket,
-} from '../../../redux/slices/websocket';
+} from "../../../redux/slices/websocket";
 
 interface WebSocketProviderProps {
   children: React.ReactNode;
 }
 
-const CONNECT_WS = true;
-
 const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const wsConnected =
-    useSelector((state: RootState) => state.websocket.connected) || 0;
-  const serverConnected = useSelector(
-    (state: RootState) => state.server.connected
+  const wsConnected = useSelector(
+    (state: RootState) => state.websocket.connected
   );
-  console.log('serverConnected', serverConnected);
-  console.log('wsConnected', wsConnected);
 
   useEffect(() => {
-    if (CONNECT_WS) {
-      dispatch(connectSocket());
+    console.log("Mounting WebSocketProvider");
 
-      return () => {
-        dispatch(disconnectSocket());
-      };
-    }
-  }, []);
+    dispatch(connectSocket());
 
-  if (serverConnected) {
-    return children;
+    return () => {
+      console.log("Unmounting WebSocketProvider, cleaning up...");
+      dispatch(disconnectSocket());
+    };
+  }, [dispatch]);
+
+  if (!wsConnected) {
+    console.log("WebSocket not connected, rendering null");
+    return <>connecting</>;
   }
+
+  return <>{children}</>;
 };
 
 export default WebSocketProvider;

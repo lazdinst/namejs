@@ -61,6 +61,7 @@ export class Game {
       return "One or both platoons not found.";
     }
 
-    return attacker.attack(target);
+    // return attacker.attack(target);
+    return "attacking";
   }
 }
