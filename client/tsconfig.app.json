@@ -18,7 +18,16 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Shared paths */
+    "baseUrl": ".",
+    "paths": {
+      "shared/*": [
+        "../shared/src/*", // Use the source files during development
+        "../shared/dist/*" // Fallback to the compiled files for production
+      ]
+    }
   },
   "include": ["src"]
 }

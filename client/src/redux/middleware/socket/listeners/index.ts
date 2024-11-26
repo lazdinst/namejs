@@ -17,6 +17,7 @@ export const setupSocketStateListeners = (
   getState: () => RootState,
   dispatch: AppDispatch
 ) => {
+  console.log(getState);
   socket.onopen = () => handleOnOpen(dispatch);
 
   socket.onclose = () => handleOnClose(dispatch);
