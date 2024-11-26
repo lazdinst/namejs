@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES6", // Target ECMAScript 6
+    "module": "commonjs", // CommonJS module system
+    "declaration": true, // Generate .d.ts files for types
+    "declarationMap": true, // Source maps for declarations
+    "outDir": "./dist", // Output directory for compiled files
+    "rootDir": "./src", // Root directory of source files
+    "strict": true, // Enable all strict type-checking options
+    "esModuleInterop": true, // Ease CommonJS imports
+    "skipLibCheck": true // Skip type-checking declaration files
+  },
+  "include": ["src/**/*"], // Include all files in src
+  "exclude": ["node_modules", "dist"] // Exclude node_modules and dist
+}
