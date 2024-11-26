@@ -9,6 +9,10 @@ export const handleOnMessage = (event: MessageEvent, dispatch: AppDispatch) => {
 
   const messageType = message.type;
 
+  if (messageType === "gameState") {
+    const platoons = message.payload.platoons;
+    console.log("Platoons:", platoons);
+  }
   if (messageType === "status") {
     handleStatusMessageType(message, dispatch);
   }

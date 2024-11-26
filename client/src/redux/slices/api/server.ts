@@ -21,7 +21,7 @@ interface ServerStatusResponse {
 export const fetchServerStatus = createAsyncThunk<ServerStatusResponse, void>(
   "server/fetchServerStatus",
   async () => {
-    const HOST = import.meta.env.VITE_SERVER_HOST || "0.0.0.0";
+    const HOST = import.meta.env.VITE_SERVER_HOST || "localhost";
     const PORT = import.meta.env.VITE_SERVER_PORT || 4000;
     const uri = `http://${HOST}:${PORT}/api/status`;
     const response = await axios.get<ServerStatusResponse>(uri);

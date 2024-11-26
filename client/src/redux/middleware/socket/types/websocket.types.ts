@@ -1,4 +1,4 @@
-import { StatusMessageType, IOMessageType } from './message.types';
+import { GameStateMessage } from "./message.types";
 
 // Consumed by toast action
 export interface CustomAction {
@@ -9,4 +9,4 @@ export interface CustomAction {
   payload: string;
 }
 
-export type WebsocketMessage = StatusMessageType | IOMessageType;
+export type WebsocketMessage = GameStateMessage;
