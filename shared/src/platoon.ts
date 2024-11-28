@@ -13,4 +13,6 @@ export enum PlatoonFaction {
   BEAR = "bear",
 }
 
+export const platoonFactions = ["usec", "bear"];
+
 export type PlatoonStrategy = "aggressive" | "defensive" | "patrol";

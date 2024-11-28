@@ -3,7 +3,6 @@ import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { setFaction } from "../../../redux/slices/platoons";
 import { PlatoonFaction } from "shared";
 
-const platoonFactions = Object.values(PlatoonFaction);
 const PlatoonSelector: React.FC = () => {
   const dispatch = useAppDispatch();
   const selectedFaction = useAppSelector(
@@ -12,8 +11,10 @@ const PlatoonSelector: React.FC = () => {
 
   const handleFactionChange = (faction: PlatoonFaction) => {
     dispatch(setFaction(faction));
+    console.log("Selected faction:", faction);
   };
 
+  const platoonFactions = Object.values(PlatoonFaction);
   return (
     <div>
       <h3>Select Platoon Faction</h3>

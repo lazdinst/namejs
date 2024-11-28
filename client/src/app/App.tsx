@@ -8,7 +8,7 @@ import WebSocketProvider from "./providers/WebSocketProvider";
 import Map from "./Map";
 import TopNavBar from "./components/TopNavBar";
 import PlatoonPanel from "./containers/PlatoonPanel";
-// import PlatoonSelector from "./containers/PlatoonSelector";
+import PlatoonSelector from "./containers/PlatoonSelector";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -80,7 +80,7 @@ function App() {
           }
           leftPanel={
             <>
-              {/* <PlatoonSelector /> */}
+              <PlatoonSelector />
               <PlatoonPanel />
             </>
           }
