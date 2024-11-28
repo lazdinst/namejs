@@ -1,9 +1,8 @@
-import { Platoon } from "../../../../../../server/src/game/Platoon";
-
+import { PlatoonType } from "shared";
 export interface GameStateMessage {
   type: string;
   payload: {
     status: string;
-    platoons: Platoon[];
+    platoons: PlatoonType[];
   };
 }

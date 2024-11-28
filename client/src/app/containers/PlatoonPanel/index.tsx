@@ -31,18 +31,18 @@ const UnitInfo = styled.div`
 `;
 
 const PlatoonPanel: React.FC = () => {
-  const selectedFaction = useAppSelector(
-    (state) => state.platoons.selectedFaction
+  const selectedPlatoon = useAppSelector(
+    (state) => state.platoons.selectedPlatoon
   ) as PlatoonType | null;
 
-  if (!selectedFaction) {
+  if (!selectedPlatoon) {
     return <PanelContainer>No platoon selected</PanelContainer>;
   }
 
   return (
     <PanelContainer>
-      <PlatoonTitle>{selectedFaction.id}</PlatoonTitle>
-      {selectedFaction.units.map((unit) => (
+      <PlatoonTitle>{selectedPlatoon.id}</PlatoonTitle>
+      {selectedPlatoon.units.map((unit) => (
         <UnitCard key={unit.id}>
           <UnitInfo>
             <strong>Role:</strong> {unit.role}
