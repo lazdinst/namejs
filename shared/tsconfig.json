@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES6", // Target ECMAScript 6
-    "module": "commonjs", // CommonJS module system
+    "target": "ES2020", // Match the React application's target
+    "module": "ESNext", // Compile as ES Modules
     "declaration": true, // Generate .d.ts files for types
     "declarationMap": true, // Source maps for declarations
     "outDir": "./dist", // Output directory for compiled files

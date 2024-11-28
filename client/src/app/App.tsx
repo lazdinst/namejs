@@ -7,6 +7,8 @@ import WebSocketProvider from "./providers/WebSocketProvider";
 
 import Map from "./Map";
 import TopNavBar from "./components/TopNavBar";
+import PlatoonPanel from "./containers/PlatoonPanel";
+import PlatoonSelector from "./containers/PlatoonSelector";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -76,7 +78,12 @@ function App() {
               onAvatarClick={() => console.log("Avatar clicked!")}
             />
           }
-          leftPanel={<div>Left Panel Content</div>}
+          leftPanel={
+            <>
+              <PlatoonSelector />
+              <PlatoonPanel />
+            </>
+          }
           rightPanel={<div>Right Panel Content</div>}
           map={<Map />}
         />

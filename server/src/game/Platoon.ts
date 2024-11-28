@@ -1,17 +1,20 @@
 import { Unit } from "./Unit";
-
+import { PlatoonFaction, PlatoonStrategy } from "shared";
 export class Platoon {
   public id: string;
-  public strategy: "aggressive" | "defensive" | "patrol";
+  public strategy: PlatoonStrategy;
+  public faction: PlatoonFaction | null;
   public units: Unit[];
 
   constructor(
     id: string,
-    strategy: "aggressive" | "defensive" | "patrol",
+    faction: PlatoonFaction,
+    strategy: PlatoonStrategy,
     units: Unit[]
   ) {
     this.id = id;
     this.strategy = strategy;
+    this.faction = faction;
     this.units = units;
   }
 
