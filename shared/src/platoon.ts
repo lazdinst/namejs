@@ -13,6 +13,10 @@ export enum PlatoonFaction {
   BEAR = "bear",
 }
 
-export const platoonFactions = ["usec", "bear"];
+export const platoonFactions = Object.values(PlatoonFaction);
 
-export type PlatoonStrategy = "aggressive" | "defensive" | "patrol";
+export enum PlatoonStrategy {
+  AGGRESSIVE = "aggressive",
+  DEFENSIVE = "defensive",
+  PATROL = "patrol",
+}

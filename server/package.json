@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "start": "node dist/server/server.js",
-    "dev": "ts-node-dev --respawn src/server/server.ts"
+    "dev": "tsx src/server/server.ts"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +24,7 @@
   },
   "devDependencies": {
     "@types/ws": "^8.5.12",
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "tsx": "^4.19.2"
   }
 }

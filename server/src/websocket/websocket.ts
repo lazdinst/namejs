@@ -1,4 +1,4 @@
-import { Server as WebSocketServer, WebSocket } from "ws";
+import WebSocket, { WebSocketServer } from "ws";
 import { Server as HTTPServer, IncomingMessage } from "http";
 import { handleConnection } from "./handlers";
 import { Game } from "../game/Game";
