@@ -1,30 +1,13 @@
-type modalType =
-  | 'new_mission'
-  | 'load_mission'
-  | 'clear_mission'
-  | 'delete_mission'
-  | 'remove_mission'
-  | 'set_selected_mission'
-  | 'payload_confirmation'
-  | 'payload_warning'
-  | 'delete_task'
-  | 'overwrite_task_position'
-  | null;
-
-export type TabsProps =
-  | 'robot'
-  | 'joint'
-  | 'teaching'
-  | 'arm'
-  | 'device manager';
 export interface UIState {
-  isRobotPanelCollapsibleOpen: boolean;
-  isModalOpen: boolean;
-  modalVariant: modalType | null;
-  showAdvancedOptions: boolean;
-  controlPanelTabState: TabsProps | null;
-  activeRoute: string;
-  inputFocus: boolean;
-  activeTaskId: string | null;
-  activePositionId: string | null;
+  /** Unit highlighted in the roster panel, if any. */
+  selectedUnitId: string | null;
+  /**
+   * Bumped each time the roster asks the map to re-centre on the selected
+   * unit. A counter, not a flag, so picking the same unit twice pans twice.
+   */
+  focusNonce: number;
+  /** Whether the map keeps the selected platoon centred as it moves. */
+  followSelection: boolean;
+  /** The ops drawer on the right edge. Starts collapsed. */
+  rightPanelOpen: boolean;
 }

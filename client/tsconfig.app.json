@@ -23,6 +23,7 @@
     /* Shared paths */
     "baseUrl": ".",
     "paths": {
+      "@/*": ["./src/*"],
       "shared/*": [
         "../shared/src/*", // Use the source files during development
         "../shared/dist/*" // Fallback to the compiled files for production

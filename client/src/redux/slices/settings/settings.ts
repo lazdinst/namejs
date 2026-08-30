@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { SettingsState } from "./types";
+import { UI_STORAGE_KEY } from "../../utils";
 
 const initialState: SettingsState = {
   cacheUIState: true,
@@ -14,7 +15,7 @@ const settings = createSlice({
       state.cacheUIState = !state.cacheUIState;
     },
     clearUICache: () => {
-      localStorage.removeItem("ui");
+      localStorage.removeItem(UI_STORAGE_KEY);
     },
   },
 });

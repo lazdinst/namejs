@@ -17,19 +17,21 @@ const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ children }) => {
   );
 
   useEffect(() => {
-    console.log("Mounting WebSocketProvider");
-
     dispatch(connectSocket());
-
     return () => {
-      console.log("Unmounting WebSocketProvider, cleaning up...");
       dispatch(disconnectSocket());
     };
   }, [dispatch]);
 
   if (!wsConnected) {
-    console.log("WebSocket not connected, rendering null");
-    return <>connecting</>;
+    return (
+      <div className="flex h-screen w-screen items-center justify-center bg-background">
+        <span className="flex items-center gap-2">
+          <span className="h-1.5 w-1.5 animate-pulse-dim rounded-full bg-primary" />
+          <span className="label-tech">Opening telemetry stream</span>
+        </span>
+      </div>
+    );
   }
 
   return <>{children}</>;

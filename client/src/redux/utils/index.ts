@@ -1,39 +1,18 @@
-export function loadPlannerState() {
-  try {
-    const serializedState = localStorage.getItem('planner');
-    if (serializedState === null) {
-      return undefined;
-    }
-    return JSON.parse(serializedState);
-  } catch (err) {
-    console.error('Failed to load planner state from localStorage', err);
-    return undefined;
-  }
-}
+/**
+ * Versioned so a cached copy of an older UI shape is ignored rather than
+ * rehydrated into a store that no longer has those fields.
+ */
+export const UI_STORAGE_KEY = "ui.v3";
 
 export function loadUIState() {
   try {
-    const serializedState = localStorage.getItem('ui');
-    console.log('serializedState', serializedState);
+    const serializedState = localStorage.getItem(UI_STORAGE_KEY);
     if (serializedState === null) {
       return undefined;
     }
     return JSON.parse(serializedState);
   } catch (err) {
-    console.error('Failed to load ui state from localStorage', err);
-    return undefined;
-  }
-}
-
-export function loadThemeState() {
-  try {
-    const serializedTheme = localStorage.getItem('theme');
-    if (serializedTheme === null) {
-      return undefined;
-    }
-    return JSON.parse(serializedTheme);
-  } catch (err) {
-    console.error('Failed to load theme state from localStorage', err);
+    console.error("Failed to load ui state from localStorage", err);
     return undefined;
   }
 }

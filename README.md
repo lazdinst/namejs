@@ -11,6 +11,44 @@ namejs/
 ├── server/       # Backend application
 ```
 
+## Environment Variables
+
+### Client (`client/.env`)
+
+Vite only exposes variables prefixed with `VITE_`, and it reads `client/.env` — not
+the repository root. Copy the template to get started:
+
+```bash
+cp client/.env.example client/.env
+```
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `VITE_CARTO_API_KEY` | _(unset)_ | CARTO basemap key — get one at <https://carto.com/basemaps/apikey>. When unset, the map falls back to Esri's keyless dark canvas and logs a warning. The fallback exists because CARTO answers `200` with a watermarked "API KEY REQUIRED" tile, so a missing key otherwise looks like a working map. |
+| `VITE_SERVER_HOST` | `localhost` | Backend host, used for both the REST calls and the WebSocket. |
+| `VITE_SERVER_PORT` | `4000` | Backend port. Should match the server's `PORT`. |
+
+`client/.env` is gitignored; `client/.env.example` is committed. Vite inlines these
+values into the bundle at build time, so everything here is visible to anyone who
+loads the app — never put a private secret in this file. A CARTO basemap key is
+designed to be used from the browser, but restrict it to your domains in the CARTO
+dashboard.
+
+### Server
+
+The server reads its configuration straight from the process environment. It does
+**not** load a `.env` file — there is no `dotenv` dependency — so set these in your
+shell or process manager:
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `PORT` | `4000` | HTTP and WebSocket port. |
+| `NODE_ENV` | `development` | Runtime environment. |
+
+```bash
+PORT=4100 npm run dev:server
+```
+
 ## Setup Instructions
 
 ### 1. Install Dependencies

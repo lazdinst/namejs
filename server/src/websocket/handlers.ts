@@ -10,9 +10,10 @@ export const handleConnection = (
 ): void => {
   console.log("A user connected");
 
+  // Send the joining client the current state immediately, rather than making
+  // it wait up to a broadcast interval for the next tick.
   broadcastGameState(wss, game);
 
-  // Listen for incoming messages
   ws.on("message", (message: string) => handleMessage(ws, message, wss, game));
 
   ws.on("close", () => {

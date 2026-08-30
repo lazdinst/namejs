@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="96" fill="#1a2421"/>
+
+  <!-- Outer ring -->
+  <circle cx="100" cy="100" r="92" fill="none" stroke="#c9a227" stroke-width="3"/>
+
+  <!-- Inner ring -->
+  <circle cx="100" cy="100" r="84" fill="none" stroke="#2e4038" stroke-width="1.5"/>
+
+  <!-- Subtle terrain / contour lines (borderlands feel) -->
+  <path d="M30 70 Q50 65 70 75 T110 70 T150 80 T170 75"
+        fill="none" stroke="#2a3832" stroke-width="1.2" opacity="0.6"/>
+  <path d="M25 95 Q45 90 65 100 T105 95 T145 105 T175 98"
+        fill="none" stroke="#2a3832" stroke-width="1.2" opacity="0.5"/>
+  <path d="M30 125 Q55 120 80 130 T120 125 T160 135"
+        fill="none" stroke="#2a3832" stroke-width="1.2" opacity="0.4"/>
+
+  <!-- Central shield / emblem base -->
+  <path d="M100 38
+           L145 55
+           L145 110
+           Q145 145 100 162
+           Q55 145 55 110
+           L55 55 Z"
+        fill="#24302b" stroke="#c9a227" stroke-width="2.5"/>
+
+  <!-- Border post / frontier line (vertical) -->
+  <rect x="96" y="58" width="8" height="78" rx="1" fill="#8b1e2d"/>
+
+  <!-- Horizontal bars on border post -->
+  <rect x="88" y="72" width="24" height="4" rx="1" fill="#c9a227"/>
+  <rect x="88" y="92" width="24" height="4" rx="1" fill="#c9a227"/>
+  <rect x="88" y="112" width="24" height="4" rx="1" fill="#c9a227"/>
+
+  <!-- Three gold stars (Latvian reference) above the post -->
+  <g fill="#c9a227">
+    <!-- Left star -->
+    <polygon points="78,52 80.5,58 87,58 82,62 84,68 78,64.5 72,68 74,62 69,58 75.5,58"/>
+    <!-- Center star -->
+    <polygon points="100,46 102.5,52 109,52 104,56 106,62 100,58.5 94,62 96,56 91,52 97.5,52"/>
+    <!-- Right star -->
+    <polygon points="122,52 124.5,58 131,58 126,62 128,68 122,64.5 116,68 118,62 113,58 119.5,58"/>
+  </g>
+
+  <!-- Stylized "N" monogram integrated at base -->
+  <path d="M72 128
+           L72 148
+           L80 148
+           L80 138
+           L100 148
+           L120 138
+           L120 148
+           L128 148
+           L128 128
+           L120 128
+           L120 140
+           L100 130
+           L80 140
+           L80 128 Z"
+        fill="#e8e0c8"/>
+
+  <!-- Small tactical chevrons / accents -->
+  <path d="M60 100 L52 108 L60 116" fill="none" stroke="#c9a227" stroke-width="2" stroke-linecap="round"/>
+  <path d="M140 100 L148 108 L140 116" fill="none" stroke="#c9a227" stroke-width="2" stroke-linecap="round"/>
+</svg>

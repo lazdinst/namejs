@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
-import { game } from "../../server/server";
+import { game } from "../../game/instance";
+import { parseCommand } from "../../game/commands";
 
 const router = Router();
 
@@ -25,36 +26,51 @@ router.get("/:unitId", (req: Request, res: Response) => {
   }
 });
 
-// Update unit attributes
-router.patch("/:unitId", (req: Request, res: Response) => {
-  const { unitId } = req.params;
-  const unit = game
-    .getGameState()
-    .platoons.flatMap((platoon) => platoon.units)
-    .find((u) => u.id === unitId);
-  if (unit) {
-    // Here you can update specific attributes of the unit
-    // For example, updating the position
-    unit.position = req.body.position || unit.position;
-    res.json({ message: `Unit with ID: ${unitId} updated`, unit });
-  } else {
-    res.status(404).json({ message: `Unit with ID: ${unitId} not found` });
+// Order a unit to move to a position. The unit walks there over subsequent
+// ticks rather than teleporting.
+router.post("/:unitId/move", (req: Request, res: Response) => {
+  const command = parseCommand({
+    action: "move",
+    unitId: req.params.unitId,
+    newPosition: req.body?.position,
+  });
+
+  if (!command) {
+    res
+      .status(400)
+      .json({ message: "position must be [latitude, longitude]" });
+    return;
   }
+
+  const result = game.applyCommandNow(command);
+
+  if (!result.ok) {
+    res.status(404).json({ message: result.message });
+    return;
+  }
+
+  const unit = game
+    .getPlatoons()
+    .flatMap((platoon) => platoon.units)
+    .find((u) => u.id === req.params.unitId);
+
+  res.json({ message: result.message, unit });
 });
 
-// Engage an enemy with a specific unit
-router.post("/:unitId/engage", (req: Request, res: Response) => {
-  const { unitId } = req.params;
+// Stop a unit where it stands.
+router.post("/:unitId/halt", (req: Request, res: Response) => {
   const unit = game
-    .getGameState()
-    .platoons.flatMap((platoon) => platoon.units)
-    .find((u) => u.id === unitId);
-  if (unit) {
-    // Engage logic here
-    res.json({ message: `Unit with ID: ${unitId} is engaging the enemy` });
-  } else {
-    res.status(404).json({ message: `Unit with ID: ${unitId} not found` });
+    .getPlatoons()
+    .flatMap((platoon) => platoon.units)
+    .find((u) => u.id === req.params.unitId);
+
+  if (!unit) {
+    res.status(404).json({ message: `Unit with ID: ${req.params.unitId} not found` });
+    return;
   }
+
+  unit.setDestination(null);
+  res.json({ message: `Unit ${unit.id} halted.`, unit });
 });
 
 export default router;

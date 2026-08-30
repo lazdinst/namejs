@@ -5,7 +5,7 @@ const corsConfig = (req: Request, res: Response, next: NextFunction): void => {
   res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization, X-Player-Id"
   );
 
   if (req.method === "OPTIONS") {

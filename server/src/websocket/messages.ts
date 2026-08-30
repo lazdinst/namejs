@@ -1,29 +1,53 @@
 import { WebSocket, Server as WebSocketServer } from "ws";
 import { Game } from "../game/Game";
+import { parseCommand } from "../game/commands";
 import { broadcastGameState } from "./broadcast";
 
-// Updated handler to use the Game instance
+/**
+ * Handle one inbound client message. Commands are validated here and queued on
+ * the game; they are applied at the next tick boundary, never mid-update.
+ */
 export const handleMessage = (
   ws: WebSocket,
   message: string,
   wss: WebSocketServer,
   game: Game
 ): void => {
-  try {
-    const parsedMessage = JSON.parse(message);
+  let parsedMessage: { type?: unknown; data?: unknown };
 
-    if (parsedMessage.type === "command") {
-      // Use the game instance to process the command
-      game.processCommand(parsedMessage.data);
-      // Broadcast updated game state to all connected clients
-      broadcastGameState(wss, game);
-    } else {
-      console.error("Unknown message type:", parsedMessage.type);
-    }
-  } catch (error) {
-    console.error("Error processing message:", error);
+  try {
+    parsedMessage = JSON.parse(message);
+  } catch {
     ws.send(
       JSON.stringify({ type: "error", message: "Invalid message format" })
     );
+    return;
+  }
+
+  if (parsedMessage.type !== "command") {
+    ws.send(
+      JSON.stringify({
+        type: "error",
+        message: `Unknown message type: ${String(parsedMessage.type)}`,
+      })
+    );
+    return;
+  }
+
+  const command = parseCommand(parsedMessage.data);
+
+  if (!command) {
+    ws.send(
+      JSON.stringify({ type: "error", message: "Invalid or unsupported command" })
+    );
+    return;
+  }
+
+  game.enqueueCommand(command);
+
+  // When the loop is not running there is no tick to pick the command up and
+  // no broadcast coming, so acknowledge with current state instead.
+  if (!game.isTicking()) {
+    broadcastGameState(wss, game);
   }
 };

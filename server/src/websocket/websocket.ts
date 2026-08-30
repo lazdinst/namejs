@@ -1,6 +1,8 @@
 import WebSocket, { WebSocketServer } from "ws";
 import { Server as HTTPServer, IncomingMessage } from "http";
 import { handleConnection } from "./handlers";
+import { broadcastGameState } from "./broadcast";
+import { lobby } from "../game/instance";
 import { Game } from "../game/Game";
 
 export const setupWebSocket = (server: HTTPServer, game: Game): void => {
@@ -8,6 +10,10 @@ export const setupWebSocket = (server: HTTPServer, game: Game): void => {
   const wss = new WebSocketServer({ server });
 
   console.log("WebSocket server is running");
+
+  // Push every simulation broadcast out to all connected clients.
+  game.subscribe(() => broadcastGameState(wss, game));
+  lobby.subscribe(() => broadcastGameState(wss, game));
 
   // Handle new WebSocket connections
   wss.on("connection", (ws: WebSocket, req: IncomingMessage) => {
