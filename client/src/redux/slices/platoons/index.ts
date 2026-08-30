@@ -1,1 +1,7 @@
-export { default as platoons, setPlatoons, setFaction } from "./platoons";
+export {
+  default as platoons,
+  setPlatoons,
+  setFaction,
+  setSelectedPlatoon,
+  selectSelectedPlatoon,
+} from "./platoons";

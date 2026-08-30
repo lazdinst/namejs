@@ -1,74 +1,40 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { UIState, TabsProps } from './types';
-
-export const tabData: TabsProps[] = ['robot', 'teaching', 'device manager'];
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { UIState } from "./types";
 
 const initialState: UIState = {
-  isRobotPanelCollapsibleOpen: false,
-  isModalOpen: false,
-  modalVariant: null,
-  showAdvancedOptions: false,
-  controlPanelTabState: tabData[0],
-  activeRoute: '/',
-  inputFocus: false,
-  activeTaskId: null,
-  activePositionId: null,
+  selectedUnitId: null,
+  focusNonce: 0,
+  followSelection: false,
+  rightPanelOpen: false,
 };
 
 export const ui = createSlice({
-  name: 'ui',
+  name: "ui",
   initialState,
   reducers: {
-    toggleRobotPanelCollapsible: (state) => {
-      state.isRobotPanelCollapsibleOpen = !state.isRobotPanelCollapsibleOpen;
+    /** Highlight a unit without moving the map — e.g. a click on the map. */
+    setSelectedUnit: (state, action: PayloadAction<string | null>) => {
+      state.selectedUnitId = action.payload;
     },
-    toggleModal: (state) => {
-      state.isModalOpen = !state.isModalOpen;
+    /** Highlight a unit AND ask the map to re-centre on it. */
+    focusUnit: (state, action: PayloadAction<string>) => {
+      state.selectedUnitId = action.payload;
+      state.focusNonce += 1;
     },
-    closeModal: (state) => {
-      state.isModalOpen = false;
-      state.modalVariant = null;
+    toggleFollowSelection: (state) => {
+      state.followSelection = !state.followSelection;
     },
-    setModalVariant: (state, action) => {
-      state.modalVariant = action.payload;
-    },
-    openModalAndSetVariant: (state, action) => {
-      state.isModalOpen = true;
-      state.modalVariant = action.payload;
-    },
-    toggleShowAdvancedOptions: (state) => {
-      state.showAdvancedOptions = !state.showAdvancedOptions;
-    },
-    setControlPanelTabState: (state, action) => {
-      state.controlPanelTabState = action.payload;
-    },
-    setActiveRoute: (state, action) => {
-      state.activeRoute = action.payload;
-    },
-    setInputFocus: (state, action) => {
-      state.inputFocus = action.payload;
-    },
-    setActiveTaskId: (state, action) => {
-      state.activeTaskId = action.payload;
-    },
-    setActivePositionId: (state, action) => {
-      state.activePositionId = action.payload;
+    toggleRightPanel: (state) => {
+      state.rightPanelOpen = !state.rightPanelOpen;
     },
   },
 });
 
 export const {
-  toggleRobotPanelCollapsible,
-  toggleModal,
-  setModalVariant,
-  openModalAndSetVariant,
-  closeModal,
-  toggleShowAdvancedOptions,
-  setControlPanelTabState,
-  setActiveRoute,
-  setInputFocus,
-  setActiveTaskId,
-  setActivePositionId,
+  setSelectedUnit,
+  focusUnit,
+  toggleFollowSelection,
+  toggleRightPanel,
 } = ui.actions;
 
 export default ui.reducer;

@@ -3,6 +3,7 @@ import RoleIconLightMachineGunner from "../assets/Icon_Machine_Gunner_kit.svg?re
 import RoleIconRecon from "../assets/Icon_Marksman_kit.svg?react";
 import RoleIconRifleman from "../assets/Icon_Rifleman_kit.svg?react";
 import RoleIconSquadLeader from "../assets/Icon_Squad_Leader_kit.svg?react";
+import RoleIconMedic from "../assets/Icon_Medic_kit.svg?react";
 
 import { Role } from "shared";
 
@@ -15,4 +16,5 @@ export const RoleIconMap: Record<
   [Role.LightMachineGunner]: RoleIconLightMachineGunner,
   [Role.Grenadier]: RoleIconGrenadier,
   [Role.Recon]: RoleIconRecon,
+  [Role.Medic]: RoleIconMedic,
 };

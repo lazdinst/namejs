@@ -1,40 +1,66 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { fetchServerStatus } from "../redux/slices/api";
 import { RootState, useAppDispatch } from "../redux/store";
-import { Wrapper } from "./components";
 import WebSocketProvider from "./providers/WebSocketProvider";
-
+import Shell, { TopBar } from "./components/Shell";
+import Mark from "./components/Mark";
 import Map from "./Map";
-import TopNavBar from "./components/TopNavBar";
 import PlatoonPanel from "./containers/PlatoonPanel";
-import PlatoonSelector from "./containers/PlatoonSelector";
+import Lobby from "./containers/Lobby";
+import GameControls from "./containers/GameControls";
+
+const MAX_RETRY_ATTEMPTS = 3;
+const RECONNECT_INTERVAL = 1000;
+
+/** Full-screen boot state, shown before the server answers. */
+const Boot: React.FC<{ attempts: number; onRetry: () => void }> = ({
+  attempts,
+  onRetry,
+}) => {
+  const exhausted = attempts >= MAX_RETRY_ATTEMPTS;
+
+  return (
+    <div className="flex h-screen w-screen flex-col items-center justify-center gap-3 bg-background">
+      <Mark size={56} />
+      <span className="text-[13px] font-bold tracking-label text-foreground">
+        NAMEJS
+      </span>
+      <div className="flex items-center gap-2">
+        {!exhausted && (
+          <span className="h-1.5 w-1.5 animate-pulse-dim rounded-full bg-primary" />
+        )}
+        <span className="label-tech">
+          {exhausted
+            ? "No link to simulation host"
+            : `Establishing link · ${attempts}/${MAX_RETRY_ATTEMPTS}`}
+        </span>
+      </div>
+      {exhausted && (
+        <button
+          type="button"
+          onClick={onRetry}
+          className="border border-hairline bg-card px-3 py-1 text-[12px] text-foreground transition-colors hover:border-primary/60 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+        >
+          Retry
+        </button>
+      )}
+    </div>
+  );
+};
 
 function App() {
   const dispatch = useAppDispatch();
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const { connected, loading } = useSelector(
-    (state: RootState) => state.server
-  );
+  const { connected, loading } = useSelector((state: RootState) => state.server);
   const [retryCount, setRetryCount] = useState(0);
-  const MAX_RETRY_ATTEMPTS = 3;
-  const RECONNECT_INTERVAL = 1000;
-
-  const navLinks = [
-    { label: "Home", href: "/" },
-    { label: "Dashboard", href: "/dashboard" },
-    { label: "Settings", href: "/settings" },
-  ];
 
   useEffect(() => {
     if (!connected && !loading && retryCount < MAX_RETRY_ATTEMPTS) {
       intervalRef.current = setInterval(() => {
         dispatch(fetchServerStatus())
           .unwrap()
-          .then(() => {
-            setRetryCount(0);
-            console.log("Connected to server");
-          })
+          .then(() => setRetryCount(0))
           .catch(() => {
             if (retryCount >= MAX_RETRY_ATTEMPTS && intervalRef.current) {
               clearInterval(intervalRef.current);
@@ -46,50 +72,29 @@ function App() {
       }, RECONNECT_INTERVAL);
 
       return () => {
-        if (intervalRef.current) {
-          clearInterval(intervalRef.current);
-        }
+        if (intervalRef.current) clearInterval(intervalRef.current);
       };
     }
   }, [connected, loading, retryCount, dispatch]);
 
   if (!connected) {
-    return (
-      <div>
-        Connecting... Failed {retryCount} of {MAX_RETRY_ATTEMPTS}
-        {retryCount >= MAX_RETRY_ATTEMPTS && (
-          <div>
-            Failed to connect to server
-            <button onClick={() => setRetryCount(0)}>Retry</button>
-          </div>
-        )}
-      </div>
-    );
-  } else {
-    return (
-      <WebSocketProvider>
-        <Wrapper
-          topNav={
-            <TopNavBar
-              appName="Namejs"
-              logoSrc="/ring.png"
-              links={navLinks}
-              avatarUrl="/ring.png"
-              onAvatarClick={() => console.log("Avatar clicked!")}
-            />
-          }
-          leftPanel={
-            <>
-              <PlatoonSelector />
-              <PlatoonPanel />
-            </>
-          }
-          rightPanel={<div>Right Panel Content</div>}
+    return <Boot attempts={retryCount} onRetry={() => setRetryCount(0)} />;
+  }
+
+  return (
+    <WebSocketProvider>
+      {/* The map is not shown until the draft is done: join and draft are
+          map-free screens, and the landing-zone pick is the first look. */}
+      <Lobby map={<Map />}>
+        <Shell
+          topBar={<TopBar />}
+          overlay={<PlatoonPanel />}
+          drawer={<GameControls />}
           map={<Map />}
         />
-      </WebSocketProvider>
-    );
-  }
+      </Lobby>
+    </WebSocketProvider>
+  );
 }
 
 export default App;

@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /*
+   * A single committed theme: a true achromatic ramp from black, with exactly
+   * one hue in the whole interface. The neutrals carry no tint at all — every
+   * grey is 0% saturation — so the green reads as signal wherever it appears.
+   */
+  :root {
+    --background: 0 0% 3.5%;
+    --foreground: 0 0% 87%;
+
+    --panel: 0 0% 5.5%;
+    --hairline: 0 0% 12%;
+
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 87%;
+
+    --popover: 0 0% 5.5%;
+    --popover-foreground: 0 0% 87%;
+
+    /* The only hue in the interface. Used for live state, never decoration. */
+    --primary: 133 48% 47%;
+    --primary-foreground: 0 0% 5%;
+
+    --secondary: 0 0% 11%;
+    --secondary-foreground: 0 0% 82%;
+
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 47%;
+
+    --accent: 0 0% 13%;
+    --accent-foreground: 0 0% 87%;
+
+    --destructive: 6 58% 52%;
+    --destructive-foreground: 0 0% 92%;
+
+    --border: 0 0% 13%;
+    --input: 0 0% 13%;
+    --ring: 133 48% 47%;
+
+    --radius: 0.125rem;
+  }
+
+  .dark {
+    color-scheme: dark;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-background text-foreground font-mono antialiased;
+    font-size: 13px;
+    font-feature-settings: "calt" 0;
+  }
+
+  /* Thin, squared-off scrollbars to match the instrument-panel feel. */
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--hairline));
+    border-radius: 0;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--muted-foreground) / 0.5);
+  }
+
+  /* Tailwind's preflight placeholder is a blue-tinted grey; keep it neutral. */
+  input::placeholder,
+  textarea::placeholder {
+    color: hsl(var(--muted-foreground));
+    opacity: 1;
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.25);
+    color: hsl(var(--foreground));
+  }
+}
+
+@layer components {
+  /* Small caps label used across every panel header. */
+  .label-tech {
+    @apply text-[10px] uppercase tracking-label text-muted-foreground font-medium;
+  }
+
+  /* Hairline rule that reads as a panel division, not a border. */
+  .rule {
+    @apply h-px w-full bg-hairline;
+  }
+
+  .numeric {
+    font-variant-numeric: tabular-nums;
+  }
+}

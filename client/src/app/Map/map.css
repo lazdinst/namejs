@@ -1,0 +1,83 @@
+/* divIcon ships with a white background and border by default. */
+.unit-marker {
+  background: transparent;
+  border: none;
+}
+
+/* Leaflet ships a saturated blue for links; the map has no second hue. */
+.leaflet-container a {
+  color: hsl(0 0% 52%);
+}
+
+.leaflet-container a:hover {
+  color: hsl(0 0% 76%);
+}
+
+.leaflet-container {
+  background: hsl(0 0% 3.5%);
+  font-family: inherit;
+  font-size: 12px;
+}
+
+/* Desaturate the basemap so it reads as a chart rather than a photograph. The
+   correction differs per provider, so it comes from --basemap-filter, set on
+   the container in Map/index.tsx. */
+.leaflet-tile-pane {
+  filter: var(--basemap-filter, grayscale(1));
+}
+
+.leaflet-tooltip.leaflet-tooltip-top,
+.leaflet-tooltip {
+  background: hsl(0 0% 5.5%);
+  border: 1px solid hsl(0 0% 15%);
+  border-radius: 2px;
+  color: hsl(0 0% 87%);
+  padding: 7px 9px;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 0.6);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.leaflet-tooltip-top::before {
+  border-top-color: hsl(0 0% 15%);
+}
+
+.leaflet-control-attribution {
+  background: hsl(0 0% 5.5% / 0.82);
+  color: hsl(0 0% 42%);
+  border-top: 1px solid hsl(0 0% 12%);
+  border-left: 1px solid hsl(0 0% 12%);
+  border-radius: 2px 0 0 0;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+
+.leaflet-control-attribution a {
+  color: hsl(0 0% 52%);
+}
+
+/*
+ * A casualty's badge pulses at their own heart rate — the duration is set
+ * inline per unit from vitals.heartRate, so a man in shock visibly races.
+ */
+@keyframes unit-pulse {
+  0%   { opacity: 0.15; transform: scale(0.94); }
+  12%  { opacity: 0.85; transform: scale(1.03); }
+  40%  { opacity: 0.25; transform: scale(0.97); }
+  100% { opacity: 0.15; transform: scale(0.94); }
+}
+
+.unit-pulse {
+  transform-origin: center;
+  transform-box: fill-box;
+  animation-name: unit-pulse;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .unit-pulse {
+    animation: none;
+    opacity: 0.5;
+  }
+}

@@ -55,6 +55,13 @@ export const defaultWeapons: Record<
     primaryWeaponSight: SightType.Scope,
     secondaryWeaponSight: SightType.IronSights,
   },
+  // Lightly armed by design — a medic is carrying an aid bag, not a fight.
+  [Role.Medic]: {
+    primaryWeapon: WeaponType.SMG,
+    secondaryWeapon: WeaponType.Pistol,
+    primaryWeaponSight: SightType.RedDot,
+    secondaryWeaponSight: SightType.IronSights,
+  },
 };
 
 // Effective range for each weapon type and sight combination
@@ -92,4 +99,53 @@ export const weaponEffectiveRange: Record<
     [SightType.RedDot]: 200,
     [SightType.IronSights]: 150,
   },
+};
+
+// Aimed shots per minute. Not cyclic rate — this is the rate a unit actually
+// puts effective fire on a target with.
+export const weaponRateOfFire: Record<WeaponType, number> = {
+  [WeaponType.AssaultRifle]: 60,
+  [WeaponType.LightMachineGun]: 90,
+  [WeaponType.GrenadeLauncher]: 12,
+  [WeaponType.SniperRifle]: 20,
+  [WeaponType.Pistol]: 45,
+  [WeaponType.SMG]: 75,
+};
+
+/** Chance to hit at point-blank range, before any range falloff. */
+export const BASE_HIT_CHANCE = 0.95;
+
+/** Chance to hit at the very edge of a weapon's effective range. */
+export const MAX_RANGE_HIT_CHANCE = 0.25;
+
+/**
+ * Probability of a hit at `meters` for a weapon with `effectiveRange`.
+ * Zero beyond effective range — a unit simply does not take the shot.
+ */
+export function hitChance(meters: number, effectiveRange: number): number {
+  if (meters > effectiveRange) return 0;
+  if (effectiveRange <= 0) return 0;
+
+  const ratio = Math.min(1, Math.max(0, meters / effectiveRange));
+  return BASE_HIT_CHANCE - (BASE_HIT_CHANCE - MAX_RANGE_HIT_CHANCE) * ratio;
+}
+
+/** Rounds per magazine. */
+export const weaponMagazineSize: Record<WeaponType, number> = {
+  [WeaponType.AssaultRifle]: 30,
+  [WeaponType.LightMachineGun]: 100,
+  [WeaponType.GrenadeLauncher]: 1,
+  [WeaponType.SniperRifle]: 10,
+  [WeaponType.Pistol]: 15,
+  [WeaponType.SMG]: 30,
+};
+
+/** Simulated seconds to swap a magazine. */
+export const weaponReloadSeconds: Record<WeaponType, number> = {
+  [WeaponType.AssaultRifle]: 2.5,
+  [WeaponType.LightMachineGun]: 6,
+  [WeaponType.GrenadeLauncher]: 4,
+  [WeaponType.SniperRifle]: 3.5,
+  [WeaponType.Pistol]: 2,
+  [WeaponType.SMG]: 2.2,
 };
